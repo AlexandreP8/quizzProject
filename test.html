@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="UTF-8">
+<link href="css/style2.css" rel="stylesheet">
+
+
+<title> Quizzzz</title>
+</head>
+<body>
+    
+    <header> <h1> Le Grand Quiz des Champions </h1> </header>
+
+<section>
+    
+     <div id="Crono">Timer: 10</div>
+
+   </section>
+
+
+            <script type="text/javascript">
+               // initialise le temps
+               var cpt = 10;
+
+               timer = setInterval(function(){
+               if(cpt>0) {
+               --cpt; // décrémente le compteur
+               document.getElementById("Crono").innerHTML = "Timer: " + cpt;
+                }
+               else {
+                  submitButton.addEventListener("click", showResults);
+                  nextButton.addEventListener("click", showNextSlide);
+                  clearInterval(timer);
+                }
+               }, 1000);
+               
+               </script>
+
+
+</body>
+
+
+</html>
