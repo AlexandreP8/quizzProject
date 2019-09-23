@@ -25,11 +25,6 @@
   };
   timer();
 
-  // restart chrono
-  function restart() {
-    clearInterval(interval);
-    timer();
-  };
   /****** FIN FONCTION TIMER ******/
 
   /****** QUESTIONS ******/
@@ -385,29 +380,7 @@
   }
   /****** FIN FONCTION SHOW RESULTS ******/
 
-
-  /****** FONCTION SHOW ONE RESULT ******/
-  function checkFunc() {
-    if (document.querySelectorAll('input[type="radio"]:checked').length === 0) alert("Pas de réponse : 0 point");
-  }
-
-  function showOneResult() {
-
-    // stop timer
-    clearInterval(interval);
-
-    //verif si une case est cochée
-    checkFunc();
-    
-    alert("test")
-
-    showNextSlide();
-    
-  }
-  /****** FIN FONCTION SHOW RESULTS ******/
-
-
-  
+ 
   /****** FONCTION SHOW SLIDES ******/
   function showSlide(n) {
 
@@ -424,10 +397,47 @@
       okButton.style.display = "inline-block";
       submitButton.style.display = "none";
     }
-    nextButton.style.display = "none";
     resultsContainer.style.display = "none";
   }
   /****** FIN FONCTION SHOW SLIDES ******/
+
+
+    /****** FONCTION SHOW ONE RESULT ******/
+    function checkFunc() {
+      if (document.querySelectorAll('input[type="radio"]:checked').length === 0) alert("Pas de réponse : 0 point");
+    }
+    
+    function showAlert(currentQuestion,questionNumber){
+      const answerContainers = quizContainer.querySelectorAll(".answers");
+      const selector = `input[name=question${questionNumber}]:checked`;
+      const userAnswer = (answerContainer.querySelector(selector) || {}).value;
+      const rep = quizContainer.querySelectorAll(".answers");
+
+      if (userAnswer === currentQuestion.correctAnswer) {
+        // on ajoute un point
+        alert("CORRECT !");;
+        // color le texte en vert
+      } else {
+        // si faux ou timeOut : en rouge
+        alert(" FAUX ! La bonne reponse est " + rep);
+        }
+    }
+
+    function showOneResult() {
+  
+      // stop timer
+      clearInterval(interval);
+  
+      //verif si une case est cochée
+      checkFunc();
+      
+      //select rep et compare
+      showAlert();
+
+      //Passe au slide suivant
+      showNextSlide();
+    };
+    /****** FIN FONCTION SHOW RESULTS ******/
 
 
   /****** FONCTION NEXT SLIDES ******/
@@ -478,11 +488,9 @@
 
   //events btn
   //on slides
-  okButton.addEventListener("click", showOneResults);
+  okButton.addEventListener("click", showOneResult);
   submitButton.addEventListener("click", showResults);
-  //on timer
-  submitButton.addEventListener("click", stop);
-  nextButton.addEventListener("click", restart);
+
   //on btn-result
   previousResult.addEventListener("click", showPreviousResult);
   nextResult.addEventListener("click", showNextResult);
@@ -490,3 +498,6 @@
 
 })();
 
+/* A corriger */
+
+// Slide-1 et +1 : fixer la limite
